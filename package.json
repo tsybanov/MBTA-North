@@ -3,13 +3,25 @@
   "version": "1.0.0",
   "description": "A visual simulation of a real-life departure board at North Station, Boston, MA (MBTA)",
   "main": "index.js",
-  "scripts": {},
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
+  },
+  "scripts": {
+    "start": "webpack-dev-server --open"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tsybanov/MBTA-North.git"
   },
   "author": "Max Tsybanov",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tsybanov/MBTA-North.git/issues"
+  },
+  "homepage": "https://github.com/tsybanov/MBTA-North.git#readme",
   "dependencies": {
     "@babel/core": "^7.10.5",
     "@babel/preset-env": "^7.10.4",
