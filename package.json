@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "A visual simulation of a real-life departure board at North Station, Boston, MA (MBTA)",
   "main": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "author": "Max Tsybanov",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
 }
