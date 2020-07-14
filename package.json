@@ -4,6 +4,10 @@
   "description": "A visual simulation of a real-life departure board at North Station, Boston, MA (MBTA)",
   "main": "index.js",
   "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tsybanov/MBTA-North.git"
+  },
   "author": "Max Tsybanov",
   "license": "MIT",
   "dependencies": {
