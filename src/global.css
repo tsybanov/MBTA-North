@@ -23,6 +23,13 @@ body {
     text-shadow:0px 0px 5px var(--led-dimmed), 0px 0px 5px var(--led-dimmed);
 }
 
+.center {
+    position: absolute;
+    top: 128px;
+    left: 50%;
+    transform: translate(-50%);
+}
+
 .board {
     background-color: var(--second-color);
     color: var(--first-color);
@@ -30,11 +37,6 @@ body {
     padding: 15px 25px 15px 25px;
 
     font-family: Arial, Helvetica, sans-serif;
-
-    position: absolute;
-    top: 128px;
-    left: 50%;
-    transform: translate(-50%);
     
     width: 1200px;
     min-height: 500px;
@@ -144,4 +146,19 @@ body {
 .col-time-inner {
     width: 70%;
     text-align: right;
+}
+
+.warning-message {
+    margin: 16px 0px 0px 16px;
+    color: rgb(150, 150, 150);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-style: italic;
+}
+
+.warning-message a {
+    color: var(--second-color)
+}
+
+.warning-message a:hover {
+    color: var(--led)
 }

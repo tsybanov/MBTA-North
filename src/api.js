@@ -120,7 +120,6 @@ function generateAMTRAKList(parsedRecords) {
         if (parsed.time.getTime() < currentTime.getTime() - oldestAMTRAKRecord)
             continue
 
-        
         if (parsed.time < currentTime)
             parsed.status = "DEPARTED"
         else if (parsed.time.getTime() < currentTime.getTime() + timeForBoarding)
