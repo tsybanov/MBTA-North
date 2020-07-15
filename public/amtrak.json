@@ -1,47 +1,48 @@
 {
     "carrier": "AMTRAK Downeaster",
     "url": "https://amtrakdowneaster.com/sites/default/files/2020-Summer-Schedule_8.5x11_3-Web.pdf",
+    "updateDate": "2020-07-20T00:00:00-04:00",
     "weekDay": [
         {
             "train": 681,
-            "departure_time": "1970-01-01T09:05:00-4:00",
+            "departure_time": "2020-07-15T09:05:00-04:00",
             "destination": "Brunswick, ME"
         },
         {
             "train": 683,
-            "departure_time": "1970-01-01T12:05:00-4:00",
+            "departure_time": "2020-07-15T12:05:00-04:00",
             "destination": "Brunswick, ME"
         },
         {
             "train": 685,
-            "departure_time": "1970-01-01T17:00:00-4:00",
+            "departure_time": "2020-07-15T17:00:00-04:00",
             "destination": "Brunswick, ME"
         },
         {
             "train": 689,
-            "departure_time": "1970-01-01T20:30:00-4:00",
+            "departure_time": "2020-07-15T20:30:00-04:00",
             "destination": "Brunswick, ME"
         }
     ],
     "weekend": [
         {
             "train": 683,
-            "departure_time": "1970-01-01T09:55:00-4:00",
+            "departure_time": "2020-07-15T09:55:00-04:00",
             "destination": "Brunswick, ME"
         },        
         {
             "train": 683,
-            "departure_time": "1970-01-01T13:05:00-4:00",
+            "departure_time": "2020-07-15T13:05:00-04:00",
             "destination": "Brunswick, ME"
         },        
         {
             "train": 683,
-            "departure_time": "1970-01-01T16:45:00-4:00",
+            "departure_time": "2020-07-15T16:45:00-04:00",
             "destination": "Brunswick, ME"
         },        
         {
             "train": 683,
-            "departure_time": "1970-01-01T21:45:00-4:00",
+            "departure_time": "2020-07-15T21:45:00-04:00",
             "destination": "Brunswick, ME"
         }
     ]
