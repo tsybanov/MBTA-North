@@ -1,15 +1,22 @@
-// MBTA API
+// MBTA API + AMTRAK JSON (Offline)
+import AMTRAKjson from '../public/amtrak.json'
 
-const oldestRecord = 30 * 60 * 1000 // 30 minutes
+const oldestMBTARecord = 30 * 60 * 1000 // 30 minutes
+const oldestAMTRAKRecord = 3 * 60 * 60 * 1000 // 3 hours
+const timeForBoarding = 15 * 60 * 1000 // 15 minutes. Just for AMTRAK
 
-const url = "https://api-v3.mbta.com/predictions?filter[stop]=place-north&filter[direction_id]=0&filter[route_type]=2&include=schedule,trip"
+const MBTA = "MBTA"
+const AMTRAK = "AMTRAK"
+const TBD = "TBD"
+
+const urlMBTA = "https://api-v3.mbta.com/predictions?filter[stop]=place-north&filter[direction_id]=0&filter[route_type]=2&include=schedule,trip"
 const headers = {
 }
 
 let currentTime
 export const getTimetable = async() => {
     const timetable = 
-        await fetch(url, { headers })
+        await fetch(urlMBTA, { headers })
                 .catch(err => { throw(err) })
     
     const result = 
@@ -23,6 +30,7 @@ export const getTimetable = async() => {
 
 function parseData(data) {
     let parsedRecords = []
+
     let scheduleMap = {}
     let tripsMap = {}
     
@@ -39,7 +47,22 @@ function parseData(data) {
     }
     //
     
-    for (let key in scheduleMap) {
+    parsedRecords = generateMBTAList(parsedRecords, scheduleMap, tripsMap)
+    parsedRecords = generateAMTRAKList(parsedRecords)
+    
+    // Sort by departure time
+    parsedRecords.sort((r1, r2) => r1.time.getTime() - r2.time.getTime())
+
+    // Convert to human-readable time in en-US locale
+    for (let record of parsedRecords) {
+        record.time = record.time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+    }
+    
+    return parsedRecords
+}
+
+function generateMBTAList(parsedRecords, scheduleMap, tripsMap) {
+    for (const key in scheduleMap) {
         if (!scheduleMap.hasOwnProperty(key)) continue
         
         const record = scheduleMap[key]
@@ -47,18 +70,18 @@ function parseData(data) {
         
         let parsed = {
             id: record.schedule.id,
-            carrier: "MBTA",
+            carrier: MBTA,
             time: record.prediction.departure_time ?? record.schedule.attributes.departure_time,
             destination: tripsMap[tripID].trip.attributes.headsign,
             train: tripsMap[tripID].trip.attributes.name,
-            track: "TBD",
+            track: TBD,
             status: record.prediction.attributes.status
         }
         
         parsed.time = new Date(parsed.time)
         
-        // Skip records older than `oldestRecord`
-        if (parsed.time.getTime() < currentTime.getTime() - oldestRecord) 
+        // Skip records older than `oldestMBTARecord` 
+        if (parsed.time.getTime() < currentTime.getTime() - oldestMBTARecord) 
             continue
 
         // Asign track # if it's ready
@@ -72,13 +95,39 @@ function parseData(data) {
         parsedRecords.push(parsed)
     }
 
-    // Sort by departure time
-    parsedRecords.sort((r1, r2) => r1.time.getTime() - r2.time.getTime())
+    return parsedRecords
+}
 
-    // Convert to human-readable time in en-US locale
-    for (let record of parsedRecords) {
-        record.time = record.time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-    }
+function generateAMTRAKList(parsedRecords) {
+    const currentDayList = currentTime.getDay() <= 4 ? AMTRAKjson.weekDay : AMTRAKjson.weekend
     
+    for (const record of currentDayList) {
+        let parsed = {
+            id: record.train,
+            carrier: AMTRAK,
+            time: new Date(record.departure_time),
+            destination: record.destination,
+            train: record.train,
+            track: TBD,
+            status: "ON TIME"
+        }
+
+        parsed.time.setFullYear = currentTime.getFullYear()
+        parsed.time.setMonth = currentTime.getMonth()
+        parsed.time.setDate = currentTime.getDate()
+
+        // Skip records older than `oldestAMTRAKRecord`
+        if (parsed.time.getTime() < currentTime.getTime() - oldestAMTRAKRecord)
+            continue
+
+        
+        if (parsed.time < currentTime)
+            parsed.status = "DEPARTED"
+        else if (parsed.time.getTime() < currentTime.getTime() + timeForBoarding)
+            parsed.status = "BOARDING"
+
+        parsedRecords.push(parsed)
+    }
+
     return parsedRecords
 }
