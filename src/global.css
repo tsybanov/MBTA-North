@@ -70,10 +70,20 @@ body {
     width: 100%;
 }
 
-.board-top-container .time-info {
+.board-top-container .time {
     text-align: right;
     white-space: nowrap;
     width: 450px;
+}
+
+.board-top-container .time-info {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.board-top-container .time-info-column {
+    width: 24px;
+    text-align: center;
 }
 
 .board-timetable-lables {

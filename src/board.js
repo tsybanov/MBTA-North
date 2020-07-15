@@ -6,18 +6,22 @@ class Board extends React.Component {
     state = {
         timetable: [],
         datetime: {
-            time: '--:--'
+            timeHour: '--',
+            timeMinutes: '--'
         },
         isLoaded: false,
-        isError: false
+        isError: false,
+        isTimeColumnFlipped: false
     }
 
     componentDidMount() {
-        this.interval = setInterval(this.predictionsUpdate, 4000)
+        this.timetableUpdateInterval = setInterval(this.predictionsUpdate, 4000)
+        this.timetableTimeUpdate = setInterval(this.timeUpdate, 1000)
     }
 
     componentWillUnmount() {
-        clearInterval(this.interval)
+        clearInterval(this.timetableUpdateInterval)
+        clearInterval(this.timetableTimeUpdate)
     }
 
     predictionsUpdate = () => {
@@ -34,9 +38,13 @@ class Board extends React.Component {
                                 weekDay: 
                                         new Intl.DateTimeFormat('en-US', { weekday: 'long'})
                                                 .format(result.date),
-                                time: 
-                                        result.date
-                                            .toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+                                timeHour: (result.date.getHours() % 12),
+                                timeMinutes: 
+                                        (result.date.getMinutes() < 10 ?
+                                            "0" + result.date.getMinutes() :
+                                            result.date.getMinutes())
+                                        + 
+                                        (result.date.getHours() >= 12 ? " PM" : " AM")
                             }, 
                     isLoaded: true
                 })
@@ -46,63 +54,82 @@ class Board extends React.Component {
                 console.log(err)
             })
     }
+
+    timeUpdate = () => {
+        this.setState(state => ({
+            isTimeColumnFlipped: !state.isTimeColumnFlipped
+        }))
+    }
     
     render() {
-            return(
-            <div className="board">
-                <div className="board-top-container">
-                    <div className="day-info led">
-                        {this.state.datetime.weekDay}<br />
-                        {this.state.datetime.date}
-                    </div>
-                    <div className="center-label">
-                        NORTH STATION TRAIN INFORMATION
-                    </div>
-                    <div className="time-info led">
-                        CURRENT TIME<br />
-                        {this.state.datetime.time}
+        const timeColumnVisibility = this.state.isTimeColumnFlipped ? 
+                {"visibility": "visible"}
+                :
+                {"visibility": "hidden"}
+
+        return(
+        <div className="board">
+            <div className="board-top-container">
+                <div className="day-info led">
+                    {this.state.datetime.weekDay}<br />
+                    {this.state.datetime.date}
+                </div>
+                <div className="center-label">
+                    NORTH STATION TRAIN INFORMATION
+                </div>
+                <div className="time led">
+                    CURRENT TIME<br />
+                    <div className="time-info">
+                        <div className="time-info-hours">
+                            {this.state.datetime.timeHour}
+                        </div>
+                        <div className="time-info-column" style={timeColumnVisibility}>:</div>
+                        <div className="time-info-minuts-and-period">
+                            {this.state.datetime.timeMinutes}
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <div className="board-timetable-lables">
-                    <div className="col-carrier">CARRIER</div>
-                    <div className="col-time">TIME</div>
-                    <div className="col-destination">DESTINATION</div>
-                    <div className="col-train">TRAIN#</div>
-                    <div className="col-track">TRACK#</div>
-                    <div className="col-status">STATUS</div>
-                </div>
+            <div className="board-timetable-lables">
+                <div className="col-carrier">CARRIER</div>
+                <div className="col-time">TIME</div>
+                <div className="col-destination">DESTINATION</div>
+                <div className="col-train">TRAIN#</div>
+                <div className="col-track">TRACK#</div>
+                <div className="col-status">STATUS</div>
+            </div>
 
-                {   /* Loading */
-                    !this.state.isLoaded && !this.state.isError && (
-                        <div className="board-timetable-records">
-                            <div className="led">Loading...</div>
-                        </div>
-                )}
-
-                {   /* Error on the load */
-                    this.state.isError && (
-                        <div className="board-timetable-records">
-                            <div className="led">Error! Check the console</div>
-                        </div>
-                    )
-                }
-
-                {   /* Loaded */
-                    this.state.isLoaded && this.state.timetable.map((record) => (
-                    <div key={record.id} className="board-timetable-records">
-                        <div className="col-carrier led">{record.carrier}</div>
-                        <div className="col-time led">
-                            <div className="col-time-inner">{record.time}</div>
-                        </div>
-                        <div className="col-destination led">{record.destination}</div>
-                        <div className="col-train led">{record.train}</div>
-                        <div className="col-track led">{record.track}</div>
-                        <div className="col-status led">{record.status}</div>
+            {   /* Loading */
+                !this.state.isLoaded && !this.state.isError && (
+                    <div className="board-timetable-records">
+                        <div className="led">Loading...</div>
                     </div>
-                ))}
+            )}
 
-            </div>)
+            {   /* Error on the load */
+                this.state.isError && (
+                    <div className="board-timetable-records">
+                        <div className="led">Error! Check the console</div>
+                    </div>
+                )
+            }
+
+            {   /* Loaded */
+                this.state.isLoaded && this.state.timetable.map((record) => (
+                <div key={record.id} className="board-timetable-records">
+                    <div className="col-carrier led">{record.carrier}</div>
+                    <div className="col-time led">
+                        <div className="col-time-inner">{record.time}</div>
+                    </div>
+                    <div className="col-destination led">{record.destination}</div>
+                    <div className="col-train led">{record.train}</div>
+                    <div className="col-track led">{record.track}</div>
+                    <div className="col-status led">{record.status}</div>
+                </div>
+            ))}
+
+        </div>)
     }
 }
 
