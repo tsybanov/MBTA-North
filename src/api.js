@@ -2,7 +2,7 @@
 
 const oldestRecord = 30 * 60 * 1000 // 30 minutes
 
-const url = "https://api-v3.mbta.com/predictions?filter[stop]=place-north&filter[direction_id]=0&filter[route_type]=2&include=schedule&sort=departure_time"
+const url = "https://api-v3.mbta.com/predictions?filter[stop]=place-north&filter[direction_id]=0&filter[route_type]=2&include=schedule,trip"
 const headers = {
 }
 
@@ -23,27 +23,34 @@ export const getTimetable = async() => {
 
 function parseData(data) {
     let parsedRecords = []
-    let map = {}
+    let scheduleMap = {}
+    let tripsMap = {}
     
-    // Create a map of combined both schedule and prediction records
+    // Create a scheduleMap of combined both schedule and prediction records
     for (let record of data.included) {
-        map[record.id] = { schedule: record, prediction: null }
+        if (record.type === "schedule")
+            scheduleMap[record.id] = { schedule: record, prediction: null }
+        else if (record.type == "trip")
+            tripsMap[record.id] = { trip: record }
     }
+
     for (let record of data.data) {
-        map[record.relationships.schedule.data.id].prediction = record
+        scheduleMap[record.relationships.schedule.data.id].prediction = record
     }
     //
-
-    for (let key in map) {
-        if (!map.hasOwnProperty(key)) continue
-
-        let record = map[key]
+    
+    for (let key in scheduleMap) {
+        if (!scheduleMap.hasOwnProperty(key)) continue
+        
+        const record = scheduleMap[key]
+        const tripID = record.schedule.relationships.trip.data.id
+        
         let parsed = {
             id: record.schedule.id,
             carrier: "MBTA",
             time: record.prediction.departure_time ?? record.schedule.attributes.departure_time,
-            destination: record.schedule.relationships.route.data.id.substring(3),
-            train: "TBD",
+            destination: tripsMap[tripID].trip.attributes.headsign,
+            train: tripsMap[tripID].trip.attributes.name,
             track: "TBD",
             status: record.prediction.attributes.status
         }
@@ -54,11 +61,7 @@ function parseData(data) {
         if (parsed.time.getTime() < currentTime.getTime() - oldestRecord) 
             continue
 
-        // Assign trian # if it's ready
-        if (record.prediction.relationships.vehicle.data != null)
-            parsed.train = record.prediction.relationships.vehicle.data.id
-        
-            // Asign track # if it's ready
+        // Asign track # if it's ready
         if (record.prediction.relationships.vehicle.data != null ||
             record.prediction.status !== "ON TIME") {
             const stop = record.prediction.relationships.stop.data.id
@@ -66,7 +69,6 @@ function parseData(data) {
             if (Number.isInteger(track))
                 parsed.track = track 
         }
-        
         parsedRecords.push(parsed)
     }
 
