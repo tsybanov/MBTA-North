@@ -13,9 +13,15 @@ module.exports = {
                 test : /\.(js)$/, 
                 loader: 'babel-loader', 
                 options: {
-                    presets: ['@babel/preset-env',
-                              '@babel/react',{
-                              'plugins': ['@babel/plugin-proposal-class-properties']}]
+                    sourceType: "unambiguous",
+                    presets: [
+                                '@babel/preset-env',
+                                '@babel/react',{
+                                    'plugins': [
+                                            '@babel/plugin-proposal-class-properties',
+                                            "@babel/plugin-transform-runtime"
+                                    ]}
+                            ]
                 }
             },
             { test : /\.css$/, use: ['style-loader', 'css-loader']},
