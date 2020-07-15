@@ -1,9 +1,11 @@
 import React from 'react'
+import './global.css'
 
 class Board extends React.Component {
     state = {
         timetable: [
             {
+                id: "record1",
                 carrier: "AMTRAK",
                 time: "6:45 PM",
                 destination: "PORTLAND, ME",
@@ -12,6 +14,7 @@ class Board extends React.Component {
                 status: "ON TIME"
             },
             {
+                id: "record2",
                 carrier: "MBTA",
                 time: "7:15 PM",
                 destination: "NEWBURYPORT",
@@ -54,9 +57,11 @@ class Board extends React.Component {
                 </div>
 
                 {this.state.timetable.map((record) => (
-                    <div className="board-timetable-records">
+                    <div key={record.id} className="board-timetable-records">
                         <div className="col-carrier led">{record.carrier}</div>
-                        <div className="col-time led">{record.time}</div>
+                        <div className="col-time led">
+                            <div className="col-time-inner">{record.time}</div>
+                        </div>
                         <div className="col-destination led">{record.destination}</div>
                         <div className="col-train led">{record.train}</div>
                         <div className="col-track led">{record.track}</div>
