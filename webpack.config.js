@@ -9,7 +9,15 @@ module.exports = {
     },
     module: {
         rules : [
-            { test : /\.(js)$/, use: 'babel-loader'},
+            { 
+                test : /\.(js)$/, 
+                loader: 'babel-loader', 
+                options: {
+                    presets: ['@babel/preset-env',
+                              '@babel/react',{
+                              'plugins': ['@babel/plugin-proposal-class-properties']}]
+                }
+            },
             { test : /\.css$/, use: ['style-loader', 'css-loader']},
             { test: /\.(woff|woff2|eot|ttf|svg)$/, use: 'file-loader'}
         ]
