@@ -115,6 +115,15 @@ class Board extends React.Component {
                 )
             }
 
+            {
+                /* No trains in the next couple of hours */
+                this.state.isLoaded && this.state.timetable.length == 0 && (
+                    <div className="board-timetable-records">
+                        <div className="led">No trains in the next hours</div>
+                    </div>
+                )
+            }
+
             {   /* Loaded */
                 this.state.isLoaded && this.state.timetable.map((record) => (
                 <div key={record.id} className="board-timetable-records">
