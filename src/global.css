@@ -31,12 +31,12 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 
     position: absolute;
-    top: 20%;
+    top: 128px;
     left: 50%;
-    transform: translate(-50%, -20%);
+    transform: translate(-50%);
     
     width: 1200px;
-    min-height: 400px;
+    min-height: 500px;
 
     -moz-box-shadow:    4px 4px 4px 4px #ccc;
     -webkit-box-shadow: 4px 4px 4px 4px #ccc;

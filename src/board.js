@@ -1,37 +1,54 @@
 import React from 'react'
 import './global.css'
+import * as API from './api'
 
 class Board extends React.Component {
     state = {
-        timetable: [
-            {
-                id: "record1",
-                carrier: "AMTRAK",
-                time: "6:45 PM",
-                destination: "PORTLAND, ME",
-                train: "697",
-                track: "TBD",
-                status: "ON TIME"
-            },
-            {
-                id: "record2",
-                carrier: "MBTA",
-                time: "7:15 PM",
-                destination: "NEWBURYPORT",
-                train: "2169",
-                track: "TBD",
-                status: "ON TIME"
-            }
-        ],
+        timetable: [],
         datetime: {
-            date: "07-15-2020",
-            weekDay: "Wednesday",
-            time: "6:28 PM"
-        }
+            time: '--:--'
+        },
+        isLoaded: false,
+        isError: false
+    }
+
+    componentDidMount() {
+        this.interval = setInterval(this.predictionsUpdate, 4000)
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval)
+    }
+
+    predictionsUpdate = () => {
+        API.getTimetable()
+            .then((result) => {
+                this.setState({
+                    timetable: result.timetable,
+                    datetime: 
+                            { 
+                                date:   
+                                        (result.date.getMonth() + 1) + "-" + 
+                                        result.date.getDate() + "-" +
+                                        result.date.getFullYear(),
+                                weekDay: 
+                                        new Intl.DateTimeFormat('en-US', { weekday: 'long'})
+                                                .format(result.date),
+                                time: 
+                                        result.date
+                                            .toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+                            }, 
+                    isLoaded: true
+                })
+            })
+            .catch((err) => {
+                this.setState({isError: err})
+                console.log(err)
+            })
     }
     
     render() {
-        return(
+            return(
             <div className="board">
                 <div className="board-top-container">
                     <div className="day-info led">
@@ -56,7 +73,23 @@ class Board extends React.Component {
                     <div className="col-status">STATUS</div>
                 </div>
 
-                {this.state.timetable.map((record) => (
+                {   /* Loading */
+                    !this.state.isLoaded && !this.state.isError && (
+                        <div className="board-timetable-records">
+                            <div className="led">Loading...</div>
+                        </div>
+                )}
+
+                {   /* Error on the load */
+                    this.state.isError && (
+                        <div className="board-timetable-records">
+                            <div className="led">Error! Check the console</div>
+                        </div>
+                    )
+                }
+
+                {   /* Loaded */
+                    this.state.isLoaded && this.state.timetable.map((record) => (
                     <div key={record.id} className="board-timetable-records">
                         <div className="col-carrier led">{record.carrier}</div>
                         <div className="col-time led">
