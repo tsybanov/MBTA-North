@@ -28,6 +28,7 @@ body {
     top: 128px;
     left: 50%;
     transform: translate(-50%);
+    padding-bottom: 128px;
 }
 
 .board {
