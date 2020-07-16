@@ -140,6 +140,7 @@ class Board extends React.Component {
                     </div>
                 ))}
             </div>
+
             <div className="warning-message">
                 <b>Be advised</b> that the AMTRAK schedule does not update in real-time. 
                 Currently, AMTRAK info provided accordingly to <a href={AMTRAK.url} target="_blank">this schedule.</a><br />
