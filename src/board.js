@@ -39,7 +39,8 @@ class Board extends React.Component {
                                 weekDay: 
                                         new Intl.DateTimeFormat('en-US', { weekday: 'long'})
                                                 .format(result.date),
-                                timeHour: (result.date.getHours() % 12),
+                                timeHour: result.date.getHours() % 12 == 0 ? 
+                                            12 : result.date.getHours() % 12,
                                 timeMinutes: 
                                         (result.date.getMinutes() < 10 ?
                                             "0" + result.date.getMinutes() :
