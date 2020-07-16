@@ -1,0 +1,49 @@
+version: 2.1
+jobs:
+  build:
+    working_directory: ~/tmp
+    docker:
+      - image: circleci/node:latest
+  
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-npm-{{ checksum "package-lock.json" }}
+            - v1-npm-
+
+      - run: npm install
+
+      - save_cache:
+          paths:
+            - ~/tmp/node_modules 
+          key: v1-npm-{{ checksum "package-lock.json" }}
+
+      - run: yarn build
+
+      - save_cache:
+          paths:
+            - ~/tmp/build
+          key: v1-build-{{ .Environment.CIRCLE_SHA1 }}
+
+  deploy:
+    working_directory: ~/tmp
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-build-{{ .Environment.CIRCLE_SHA1 }}
+
+      - run: bash ./scripts/deploy.sh
+
+workflows:
+  build_and_deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
