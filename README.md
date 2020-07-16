@@ -1,6 +1,6 @@
-# MBTA North Station Departure Board
+# MBTA North Station Commuter Rail Departure Board
 
-[Visual representation](https://commons.wikimedia.org/wiki/File:North_Station_departure_board.JPG) of the real-time departure board at North Station, Boston, MA.
+[Visual representation](https://commons.wikimedia.org/wiki/File:North_Station_departure_board.JPG) of the commuter rail departure board at North Station, Boston, MA in real-time.
 
 Demo is available [here](https://tsybanov.github.io)
 
@@ -13,5 +13,6 @@ The app is based on [React](https://reactjs.org)
 ### Install
 
 * Install [Node.js](https://nodejs.org/en/download/)
-* `npm run-script dev` or `yarn dev` for local dev run
-* `npm run-script build` or `yarn build` for production, check `/build`
+* `npm install`
+  - `npm run-script dev` or `yarn dev` for local dev run
+  - `npm run-script build` or `yarn build` for production, check `/build`
