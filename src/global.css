@@ -150,10 +150,11 @@ body {
 }
 
 .warning-message {
-    margin: 16px 0px 0px 16px;
+    margin: 16px 0px 0px 24px;
     color: rgb(150, 150, 150);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-style: italic;
+    line-height: 1.8em;
 }
 
 .warning-message a {
