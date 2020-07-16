@@ -13,5 +13,6 @@ The app is based on [React](https://reactjs.org)
 ### Install
 
 * Install [Node.js](https://nodejs.org/en/download/)
-* `npm run-script dev` or `yarn dev` for local dev run
-* `npm run-script build` or `yarn build` for production, check `/build`
+* `npm install`
+  - `npm run-script dev` or `yarn dev` for local dev run
+  - `npm run-script build` or `yarn build` for production, check `/build`
