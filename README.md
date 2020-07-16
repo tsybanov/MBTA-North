@@ -1,5 +1,7 @@
 # MBTA North Station Commuter Rail Departure Board
 
+[![tsybanov](https://circleci.com/gh/tsybanov/MBTA-North.svg?style=shield)](https://circleci.com/gh/tsybanov/MBTA-North)
+
 [Visual representation](https://commons.wikimedia.org/wiki/File:North_Station_departure_board.JPG) of the commuter rail departure board at North Station, Boston, MA in real-time.
 
 Demo is available [here](https://tsybanov.github.io)
