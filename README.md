@@ -1,6 +1,6 @@
 # MBTA North Station Commuter Rail Departure Board
 
-[Visual representation](https://commons.wikimedia.org/wiki/File:North_Station_departure_board.JPG) of the real-time departure board at North Station, Boston, MA.
+[Visual representation](https://commons.wikimedia.org/wiki/File:North_Station_departure_board.JPG) of the commuter rail departure board at North Station, Boston, MA in real-time.
 
 Demo is available [here](https://tsybanov.github.io)
 
