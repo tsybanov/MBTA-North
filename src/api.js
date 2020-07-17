@@ -112,9 +112,9 @@ function generateAMTRAKList(parsedRecords) {
             status: "ON TIME"
         }
 
-        parsed.time.setFullYear = currentTime.getFullYear()
-        parsed.time.setMonth = currentTime.getMonth()
-        parsed.time.setDate = currentTime.getDate()
+        parsed.time.setFullYear(currentTime.getFullYear())
+        parsed.time.setMonth(currentTime.getMonth())
+        parsed.time.setDate (currentTime.getDate())
 
         // Skip records older than `oldestAMTRAKRecord`
         if (parsed.time.getTime() < currentTime.getTime() - oldestAMTRAKRecord)
