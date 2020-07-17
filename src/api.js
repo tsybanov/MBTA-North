@@ -99,7 +99,7 @@ function generateMBTAList(parsedRecords, scheduleMap, tripsMap) {
 }
 
 function generateAMTRAKList(parsedRecords) {
-    const currentDayList = currentTime.getDay() <= 4 ? AMTRAKjson.weekDay : AMTRAKjson.weekend
+    const currentDayList = currentTime.getDay() != 0 && currentTime.getDay() != 6 ? AMTRAKjson.weekDay : AMTRAKjson.weekend
     
     for (const record of currentDayList) {
         let parsed = {
