@@ -2,7 +2,7 @@
 import AMTRAKjson from '../public/amtrak.json'
 
 const oldestMBTARecord = 30 * 60 * 1000 // 30 minutes
-const oldestAMTRAKRecord = 3 * 60 * 60 * 1000 // 3 hours
+const AMTRAKRecordRange = 6 * 60 * 60 * 1000 // 6 hours
 const timeForBoarding = 15 * 60 * 1000 // 15 minutes. Just for AMTRAK
 
 const MBTA = "MBTA"
@@ -116,9 +116,13 @@ function generateAMTRAKList(parsedRecords) {
         parsed.time.setMonth(currentTime.getMonth())
         parsed.time.setDate (currentTime.getDate())
 
-        // Skip records older than `oldestAMTRAKRecord`
-        if (parsed.time.getTime() < currentTime.getTime() - oldestAMTRAKRecord)
-            continue
+        // Skip records older than `AMTRAKRecordRange`
+        if (parsed.time.getTime() < currentTime.getTime() - AMTRAKRecordRange)
+          continue
+
+        // Skip records newer than `AMTRAKRecordRange` 
+        if (parsed.time.getTime() > currentTime.getTime() + AMTRAKRecordRange)
+          continue
 
         if (parsed.time < currentTime)
             parsed.status = "DEPARTED"
