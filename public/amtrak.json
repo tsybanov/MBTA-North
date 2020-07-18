@@ -26,22 +26,22 @@
     ],
     "weekend": [
         {
-            "train": 683,
+            "train": 691,
             "departure_time": "2020-07-15T09:55:00-04:00",
             "destination": "Brunswick, ME"
         },        
         {
-            "train": 683,
+            "train": 693,
             "departure_time": "2020-07-15T13:05:00-04:00",
             "destination": "Brunswick, ME"
         },        
         {
-            "train": 683,
+            "train": 695,
             "departure_time": "2020-07-15T16:45:00-04:00",
             "destination": "Brunswick, ME"
         },        
         {
-            "train": 683,
+            "train": 699,
             "departure_time": "2020-07-15T21:45:00-04:00",
             "destination": "Brunswick, ME"
         }
