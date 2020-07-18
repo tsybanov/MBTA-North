@@ -84,14 +84,12 @@ function generateMBTAList(parsedRecords, scheduleMap, tripsMap) {
         if (parsed.time.getTime() < currentTime.getTime() - oldestMBTARecord) 
             continue
 
-        // Asign track # if it's ready
-        if (record.prediction.relationships.vehicle.data != null ||
-            record.prediction.status !== "ON TIME") {
-            const stop = record.prediction.relationships.stop.data.id
-            const track = parseInt(stop.substring(stop.lastIndexOf("-") + 1))
-            if (Number.isInteger(track))
-                parsed.track = track 
-        }
+        // Asign track #
+        const stop = record.prediction.relationships.stop.data.id
+        const track = parseInt(stop.substring(stop.lastIndexOf("-") + 1))
+        if (Number.isInteger(track))
+          parsed.track = track 
+        
         parsedRecords.push(parsed)
     }
 
