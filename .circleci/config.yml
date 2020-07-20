@@ -9,10 +9,10 @@ jobs:
       - checkout
 
       - restore_cache:
-          keys:
+          keys: 
             - v1-npm-{{ checksum "package-lock.json" }}
-            - v1-npm-
-
+            - v1-npm-{{ .Environment.CIRCLE_SHA1 }}
+      
       - run: npm install
 
       - save_cache:
