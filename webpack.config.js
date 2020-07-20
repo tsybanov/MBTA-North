@@ -9,21 +9,7 @@ module.exports = {
     },
     module: {
         rules : [
-            { 
-                test : /\.(js)$/, 
-                loader: 'babel-loader', 
-                options: {
-                    sourceType: "unambiguous",
-                    presets: [
-                                '@babel/preset-env',
-                                '@babel/react',{
-                                    'plugins': [
-                                            '@babel/plugin-proposal-class-properties',
-                                            "@babel/plugin-transform-runtime"
-                                    ]}
-                            ]
-                }
-            },
+            { test : /\.(js)$/, loader: 'babel-loader' },
             { test : /\.css$/, use: ['style-loader', 'css-loader']},
             { test: /\.(woff|woff2|eot|ttf|svg)$/, use: 'file-loader'}
         ]
