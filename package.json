@@ -20,6 +20,12 @@
       "@babel/plugin-transform-runtime"
     ]
   },
+  "jest": {
+    "automock": false,
+    "setupFiles": [
+      "./setupJest.js"
+    ]
+  },
   "scripts": {
     "build": "webpack --mode production",
     "dev": "webpack-dev-server --open",
