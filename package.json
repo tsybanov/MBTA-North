@@ -21,7 +21,7 @@
     ]
   },
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --mode production",
     "dev": "webpack-dev-server --open",
     "test": "jest"
   },
