@@ -71,7 +71,7 @@ function generateMBTAList(parsedRecords, scheduleMap, tripsMap) {
         let parsed = {
             id: record.schedule.id,
             carrier: MBTA,
-            time: record.prediction.departure_time || record.schedule.attributes.departure_time,
+            time: record.prediction.attributes.departure_time || record.schedule.attributes.departure_time,
             destination: tripsMap[tripID].trip.attributes.headsign,
             train: tripsMap[tripID].trip.attributes.name,
             track: TBD,
