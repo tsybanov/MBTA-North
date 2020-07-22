@@ -1,0 +1,13 @@
+{
+  "timetable": [
+    {
+      "carrier": "MBTA",
+      "destination": "Newburyport",
+      "id": "schedule-CR-Weekday-Summer-20-177-North Station-1",
+      "status": "Departed",
+      "time": "8:35 PM",
+      "track": 4,
+      "train": "177"
+    }
+  ]
+}

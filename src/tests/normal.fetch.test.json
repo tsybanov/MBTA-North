@@ -1,0 +1,129 @@
+{
+  "data": [
+    {
+      "attributes": {
+        "arrival_time": null,
+        "departure_time": "2020-07-21T20:35:20-04:00",
+        "direction_id": 0,
+        "schedule_relationship": null,
+        "status": "Departed",
+        "stop_sequence": 1
+      },
+      "id": "prediction-CR-Weekday-Summer-20-177-North Station-04-1",
+      "relationships": {
+        "route": {
+          "data": {
+            "id": "CR-Newburyport",
+            "type": "route"
+          }
+        },
+        "schedule": {
+          "data": {
+            "id": "schedule-CR-Weekday-Summer-20-177-North Station-1",
+            "type": "schedule"
+          }
+        },
+        "stop": {
+          "data": {
+            "id": "North Station-04",
+            "type": "stop"
+          }
+        },
+        "trip": {
+          "data": {
+            "id": "CR-Weekday-Summer-20-177",
+            "type": "trip"
+          }
+        },
+        "vehicle": {
+          "data": {
+            "id": "1826",
+            "type": "vehicle"
+          }
+        }
+      },
+      "type": "prediction"
+    }
+  ],
+  "included": [
+    {
+      "attributes": {
+        "bikes_allowed": 1,
+        "block_id": "",
+        "direction_id": 0,
+        "headsign": "Newburyport",
+        "name": "177",
+        "wheelchair_accessible": 1
+      },
+      "id": "CR-Weekday-Summer-20-177",
+      "links": {
+        "self": "/trips/CR-Weekday-Summer-20-177"
+      },
+      "relationships": {
+        "route": {
+          "data": {
+            "id": "CR-Newburyport",
+            "type": "route"
+          }
+        },
+        "route_pattern": {
+          "data": {
+            "id": "CR-Newburyport-801f0591-0",
+            "type": "route_pattern"
+          }
+        },
+        "service": {
+          "data": {
+            "id": "CR-Wdy-Newburyport-Smr-20",
+            "type": "service"
+          }
+        },
+        "shape": {
+          "data": {
+            "id": "9810002",
+            "type": "shape"
+          }
+        }
+      },
+      "type": "trip"
+    },
+    {
+        "attributes": {
+        "arrival_time": null,
+        "departure_time": "2020-07-21T19:52:00-04:00",
+        "direction_id": 0,
+        "drop_off_type": 1,
+        "pickup_type": 0,
+        "stop_headsign": null,
+        "stop_sequence": 1,
+        "timepoint": true
+      },
+      "id": "schedule-CR-Weekday-Summer-20-177-North Station-1",
+      "relationships": {
+        "prediction": {},
+        "route": {
+          "data": {
+            "id": "CR-Newburyport",
+            "type": "route"
+          }
+        },
+        "stop": {
+          "data": {
+            "id": "North Station",
+            "type": "stop"
+          }
+        },
+        "trip": {
+          "data": {
+            "id": "CR-Weekday-Summer-20-177",
+            "type": "trip"
+          }
+        }
+      },
+      "type": "schedule"
+    }
+  ],
+  "jsonapi": {
+    "version": "1.0"
+  }
+}
