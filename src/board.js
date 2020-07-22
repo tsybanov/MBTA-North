@@ -28,6 +28,9 @@ class Board extends React.Component {
     predictionsUpdate = () => {
         API.getTimetable()
             .then((result) => {
+
+                result.date = new Date(result.date.toLocaleString("en-US", { timeZone: "America/New_York" }))
+
                 this.setState({
                     timetable: result.timetable,
                     datetime: 

@@ -55,7 +55,7 @@ function parseData(data) {
 
     // Convert to human-readable time in en-US locale
     for (let record of parsedRecords) {
-        record.time = record.time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+        record.time = record.time.toLocaleString('en-US', { timeZone: 'America/New_York', hour: 'numeric', minute: 'numeric', hour12: true })  
     }
     
     return parsedRecords
@@ -79,8 +79,8 @@ function generateMBTAList(parsedRecords, scheduleMap, tripsMap) {
         }
         
         parsed.time = new Date(parsed.time)
-        
-        // Skip records older than `oldestMBTARecord` 
+
+        // Skip records older than `oldestMBTARecord`
         if (parsed.time.getTime() < currentTime.getTime() - oldestMBTARecord) 
             continue
 
@@ -103,17 +103,19 @@ function generateAMTRAKList(parsedRecords) {
         let parsed = {
             id: record.train,
             carrier: AMTRAK,
-            time: new Date(record.departure_time),
+            time: record.departure_time,
             destination: record.destination,
             train: record.train,
             track: TBD,
             status: "ON TIME"
         }
 
+        parsed.time = new Date(parsed.time)
+        
         parsed.time.setFullYear(currentTime.getFullYear())
         parsed.time.setMonth(currentTime.getMonth())
         parsed.time.setDate (currentTime.getDate())
-
+        
         // Skip records older than `AMTRAKRecordRange`
         if (parsed.time.getTime() < currentTime.getTime() - AMTRAKRecordRange)
           continue
