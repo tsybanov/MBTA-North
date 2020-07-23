@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom'
 import Board from './board'
 
 ReactDOM.render(
-    <React.StrictMode>
-        <Board />
-    </React.StrictMode>,
-    document.getElementById('root')
+  <React.StrictMode>
+    <Board />
+  </React.StrictMode>,
+  document.getElementById('root')
 )
