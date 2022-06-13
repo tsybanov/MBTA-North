@@ -87,7 +87,7 @@ function generateMBTAList(parsedRecords, scheduleMap, tripsMap) {
     // Asign track #
     const stop = record.prediction.relationships.stop.data.id
     const track = parseInt(stop.substring(stop.lastIndexOf("-") + 1))
-    if (Number.isInteger(track))
+    if (Number.isInteger(track) && track != 0)
       parsed.track = track
 
     parsedRecords.push(parsed)
